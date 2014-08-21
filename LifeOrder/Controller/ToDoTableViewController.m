@@ -7,10 +7,10 @@
 //
 
 #import "ToDoTableViewController.h"
-#import "CreateToDoViewController.h"
+#import "AddToDoTableViewController.h"
 
 @interface ToDoTableViewController ()
-
+@property (nonatomic, strong) NSArray *defaultArray;
 @end
 
 @implementation ToDoTableViewController
@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.defaultArray = @[@"first", @"seconde", @"third"];
    // self.title = @"My Title";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,7 +49,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToDoCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = @"My Cell";
+    cell.textLabel.text = self.defaultArray[indexPath.row];
     return cell;
 }
 
@@ -95,9 +96,9 @@
 
 - (IBAction)createToDo:(UIStoryboardSegue *)segue
 {
-    if([segue.sourceViewController isKindOfClass:[CreateToDoViewController class]]) {
-        CreateToDoViewController *createToDoVC = (CreateToDoViewController *)segue.sourceViewController;
-        NSLog(@"returend : %@", createToDoVC.textTyped.text);
+    if([segue.sourceViewController isKindOfClass:[AddToDoTableViewController class]]) {
+        AddToDoTableViewController *createToDoVC = (AddToDoTableViewController *)segue.sourceViewController;
+        NSLog(@"returend :");
     }
 
 }
@@ -108,9 +109,9 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"CreateToDoSegue"]) {
-        if([segue.destinationViewController isKindOfClass:[CreateToDoViewController class]]) {
-            CreateToDoViewController *createToDoVc = (CreateToDoViewController *)segue.destinationViewController;
-            createToDoVc.passedStr = @"Passed String";
+        if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
+            AddToDoTableViewController *createToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
+//            createToDoVc.passedStr = @"Passed String";
         }
     }
 }
