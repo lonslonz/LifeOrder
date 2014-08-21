@@ -22,6 +22,7 @@
 		75D7C83019A4391E00ACF7BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D7C80F19A4391E00ACF7BD /* UIKit.framework */; };
 		75D7C83819A4391E00ACF7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75D7C83619A4391E00ACF7BD /* InfoPlist.strings */; };
 		75D7C83A19A4391E00ACF7BD /* LifeOrderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */; };
+		75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		75D7C83519A4391E00ACF7BD /* LifeOrderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LifeOrderTests-Info.plist"; sourceTree = "<group>"; };
 		75D7C83719A4391E00ACF7BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeOrderTests.m; sourceTree = "<group>"; };
+		75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToDoTableViewController.h; path = Controller/ToDoTableViewController.h; sourceTree = "<group>"; };
+		75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToDoTableViewController.m; path = Controller/ToDoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,7 @@
 		75D7C81119A4391E00ACF7BD /* LifeOrder */ = {
 			isa = PBXGroup;
 			children = (
+				75D7C84619A59EFF00ACF7BD /* Controller */,
 				75D7C81A19A4391E00ACF7BD /* AppDelegate.h */,
 				75D7C81B19A4391E00ACF7BD /* AppDelegate.m */,
 				75D7C81D19A4391E00ACF7BD /* Main_iPhone.storyboard */,
@@ -153,6 +157,15 @@
 				75D7C83619A4391E00ACF7BD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75D7C84619A59EFF00ACF7BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */,
+				75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75D7C82519A4391E00ACF7BD /* ViewController.m in Sources */,
+				75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */,
 				75D7C81C19A4391E00ACF7BD /* AppDelegate.m in Sources */,
 				75D7C81819A4391E00ACF7BD /* main.m in Sources */,
 			);
