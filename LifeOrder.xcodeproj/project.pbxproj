@@ -23,6 +23,7 @@
 		75D7C83819A4391E00ACF7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75D7C83619A4391E00ACF7BD /* InfoPlist.strings */; };
 		75D7C83A19A4391E00ACF7BD /* LifeOrderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */; };
 		75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */; };
+		F7C92B2619A60FD00030C710 /* CreateToDoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeOrderTests.m; sourceTree = "<group>"; };
 		75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToDoTableViewController.h; path = Controller/ToDoTableViewController.h; sourceTree = "<group>"; };
 		75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToDoTableViewController.m; path = Controller/ToDoTableViewController.m; sourceTree = "<group>"; };
+		F7C92B2419A60FD00030C710 /* CreateToDoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateToDoViewController.h; sourceTree = "<group>"; };
+		F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateToDoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +125,6 @@
 				75D7C81B19A4391E00ACF7BD /* AppDelegate.m */,
 				75D7C81D19A4391E00ACF7BD /* Main_iPhone.storyboard */,
 				75D7C82019A4391E00ACF7BD /* Main_iPad.storyboard */,
-				75D7C82319A4391E00ACF7BD /* ViewController.h */,
-				75D7C82419A4391E00ACF7BD /* ViewController.m */,
 				75D7C82619A4391E00ACF7BD /* Images.xcassets */,
 				75D7C81219A4391E00ACF7BD /* Supporting Files */,
 			);
@@ -162,6 +163,10 @@
 		75D7C84619A59EFF00ACF7BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F7C92B2419A60FD00030C710 /* CreateToDoViewController.h */,
+				F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */,
+				75D7C82319A4391E00ACF7BD /* ViewController.h */,
+				75D7C82419A4391E00ACF7BD /* ViewController.m */,
 				75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */,
 				75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */,
 			);
@@ -267,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75D7C82519A4391E00ACF7BD /* ViewController.m in Sources */,
+				F7C92B2619A60FD00030C710 /* CreateToDoViewController.m in Sources */,
 				75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */,
 				75D7C81C19A4391E00ACF7BD /* AppDelegate.m in Sources */,
 				75D7C81819A4391E00ACF7BD /* main.m in Sources */,
@@ -484,6 +490,7 @@
 				75D7C83F19A4391E00ACF7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75D7C84019A4391E00ACF7BD /* Build configuration list for PBXNativeTarget "LifeOrderTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +499,7 @@
 				75D7C84219A4391E00ACF7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

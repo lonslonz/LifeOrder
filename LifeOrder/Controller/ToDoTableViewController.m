@@ -7,21 +7,13 @@
 //
 
 #import "ToDoTableViewController.h"
+#import "CreateToDoViewController.h"
 
 @interface ToDoTableViewController ()
 
 @end
 
 @implementation ToDoTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -34,11 +26,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
@@ -103,15 +90,30 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
+
+- (IBAction)createToDo:(UIStoryboardSegue *)segue
+{
+    if([segue.sourceViewController isKindOfClass:[CreateToDoViewController class]]) {
+        CreateToDoViewController *createToDoVC = (CreateToDoViewController *)segue.sourceViewController;
+        NSLog(@"returend : %@", createToDoVC.textTyped.text);
+    }
+
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"CreateToDoSegue"]) {
+        if([segue.destinationViewController isKindOfClass:[CreateToDoViewController class]]) {
+            CreateToDoViewController *createToDoVc = (CreateToDoViewController *)segue.destinationViewController;
+            createToDoVc.passedStr = @"Passed String";
+        }
+    }
 }
-*/
+
 
 @end
