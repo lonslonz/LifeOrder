@@ -10,6 +10,6 @@
 
 @interface AddToDoTableViewController : UITableViewController
 @property (nonatomic, strong) NSString* passedStr;
-@property (weak, nonatomic) IBOutlet UITextField *textTyped;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerStatus;
+@property (weak, nonatomic) IBOutlet UITextField *toDoTyped;
+@property (nonatomic, strong) NSString* statusSelected;
 @end

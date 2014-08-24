@@ -8,9 +8,13 @@
 
 #import "ToDoTableViewController.h"
 #import "AddToDoTableViewController.h"
+#import "ToDo.h"
+#import "Status.h"
+#import "AppDelegate.h"
 
 @interface ToDoTableViewController ()
 @property (nonatomic, strong) NSArray *defaultArray;
+@property (nonatomic, weak) NSManagedObjectContext *dbContext;
 @end
 
 @implementation ToDoTableViewController
@@ -19,6 +23,7 @@
 {
     [super viewDidLoad];
     self.defaultArray = @[@"first", @"seconde", @"third"];
+    self.dbContext = [self getDbContextFromAppDelegate];
    // self.title = @"My Title";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -27,6 +32,11 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (NSManagedObjectContext *)getDbContextFromAppDelegate
+{
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    return appDelegate.dbContext;
+}
 
 #pragma mark - Table view data source
 
@@ -53,55 +63,19 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation
 
-- (IBAction)createToDo:(UIStoryboardSegue *)segue
+- (IBAction)addToDo:(UIStoryboardSegue *)segue
 {
     if([segue.sourceViewController isKindOfClass:[AddToDoTableViewController class]]) {
-        AddToDoTableViewController *createToDoVC = (AddToDoTableViewController *)segue.sourceViewController;
-        NSLog(@"returend :");
+        AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.sourceViewController;
+        NSLog(@"Pop results. typed : %@, selected : %@", addToDoVc.toDoTyped, addToDoVc.statusSelected);
     }
-
 }
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -110,11 +84,34 @@
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"CreateToDoSegue"]) {
         if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
-            AddToDoTableViewController *createToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
-//            createToDoVc.passedStr = @"Passed String";
+            AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
+            [self insertToDo:addToDoVc.toDoTyped.text status:addToDoVc.statusSelected];
+
         }
     }
 }
 
+#pragma mark - Database
+- (ToDo *)insertToDo:(NSString *)toDoText status:(NSString *)status
+{
+    ToDo *toDoObj = [NSEntityDescription insertNewObjectForEntityForName:@"ToDo"
+                                              inManagedObjectContext:self.dbContext];
+    toDoObj.toDo = toDoText;
+    toDoObj.updateDate = [NSDate date];
+    toDoObj.group = nil;
+    toDoObj.order = 0;
+    toDoObj.whichStatus = [self insertStatus:status];
+    return toDoObj;
+}
 
+- (Status *)insertStatus:(NSString *)status
+{
+    Status *statusObj = [NSEntityDescription insertNewObjectForEntityForName:@"Status"
+                                                      inManagedObjectContext:self.dbContext];
+    statusObj.status = status;
+    statusObj.group = nil;
+    statusObj.order = 0;
+    statusObj.updateDate = [NSDate date];
+    return statusObj;
+}
 @end

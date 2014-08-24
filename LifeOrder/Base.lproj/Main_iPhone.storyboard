@@ -176,7 +176,7 @@
         <scene sceneID="lTw-Q1-Qk7">
             <objects>
                 <navigationController title="Todo" automaticallyAdjustsScrollViewInsets="NO" id="0cL-Ok-rXi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="1gP-KY-vuz"/>
+                    <tabBarItem key="tabBarItem" title="To do" id="1gP-KY-vuz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y4B-UD-dkd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -213,7 +213,7 @@
         <scene sceneID="bhr-XC-OLn">
             <objects>
                 <tableViewController id="mYF-sd-jrv" customClass="AddToDoTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Ae-Jt-8La">
+                    <tableView key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Ae-Jt-8La">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -227,7 +227,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="to do" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mqA-Df-bAt">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Write to do" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mqA-Df-bAt">
                                                     <rect key="frame" x="20" y="7" width="294" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -241,19 +241,47 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Workflow" id="Apb-cb-g8o">
+                            <tableViewSection headerTitle="Status" id="Apb-cb-g8o">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fkN-pK-qlr">
-                                        <rect key="frame" x="0.0" y="211" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="144" id="fkN-pK-qlr">
+                                        <rect key="frame" x="0.0" y="211" width="320" height="144"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fkN-pK-qlr" id="enu-wW-qaZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5D-NG-AJ7">
+                                                    <rect key="frame" x="0.0" y="-31" width="320" height="162"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="mYF-sd-jrv" id="HNn-Z7-Ymq"/>
+                                                        <outlet property="delegate" destination="mYF-sd-jrv" id="gqc-7h-rN6"/>
+                                                    </connections>
+                                                </pickerView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="sFJ-XZ-40B">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yCn-uq-h5J">
+                                        <rect key="frame" x="0.0" y="375" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yCn-uq-h5J" id="QD0-Wm-pq8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcv-PV-yq1">
-                                                    <rect key="frame" x="0.0" y="-59" width="320" height="162"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                </pickerView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4d-yt-HOJ">
+                                                    <rect key="frame" x="104" y="7" width="112" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Add New Status">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="addStatus:" destination="mYF-sd-jrv" eventType="touchUpInside" id="9ew-qi-3Vo"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -273,64 +301,19 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="eJJ-W5-goL">
                             <connections>
-                                <segue destination="nKf-hS-Qrx" kind="unwind" unwindAction="createToDo:" id="aD8-Pr-ijI"/>
+                                <segue destination="nKf-hS-Qrx" kind="unwind" unwindAction="addToDo:" id="wHn-vt-k5G"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="pickerStatus" destination="dcv-PV-yq1" id="WBR-Ep-xDF"/>
-                        <outlet property="textTyped" destination="mqA-Df-bAt" id="rEV-Ot-u7e"/>
+                        <outlet property="statusPicker" destination="d5D-NG-AJ7" id="f5b-xA-yAg"/>
+                        <outlet property="toDoTyped" destination="mqA-Df-bAt" id="lfD-84-GS2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmu-Ti-Jfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="nKf-hS-Qrx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1859" y="-17"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="mNw-Ps-RZ0">
-            <objects>
-                <tableViewController id="fep-L2-IX8" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="eKj-jP-QWo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="Section-1" id="xaQ-d8-z9T">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ukV-1u-bEw">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ukV-1u-bEw" id="lIH-bO-Sfd">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Section-2" id="CXA-ZP-UtK">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gWT-H3-jmL">
-                                        <rect key="frame" x="0.0" y="147" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gWT-H3-jmL" id="SO1-u1-PU0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="fep-L2-IX8" id="eAT-oC-fFw"/>
-                            <outlet property="delegate" destination="fep-L2-IX8" id="ghW-Lt-ZZ5"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="vzI-We-ceL"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h0J-fF-XbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1859" y="664"/>
         </scene>
         <!--Navigation Controller - Goal-->
         <scene sceneID="z7y-bP-2Tu">
