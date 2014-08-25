@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.pickerData = @[@"Begin", @"Complete Order", @"Waiting delivery", @"Delaying delivery",
+    self.pickerData = @[@"Begin", @"End", @"Complete Order", @"Waiting delivery", @"Delaying delivery",
                         @"Problem with product", @"Requesting refund", @"Wating refund",  @"Close",
                         @"very very very very very very very long char"];
     [self.statusPicker selectRow:0 inComponent:0 animated:YES];

@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 #define DB_FILE_NAME @"LifeOrder.sqllite"
+#define DATA_MODEL_NAME @"DataModel"
 
 @implementation DbCreator
 
@@ -45,7 +46,7 @@
 + (NSManagedObjectModel *)createManagedObjectModel
 {
     NSManagedObjectModel *managedObjectModel = nil;
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LifeOrder" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:DATA_MODEL_NAME withExtension:@"momd"];
     managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return managedObjectModel;
 }

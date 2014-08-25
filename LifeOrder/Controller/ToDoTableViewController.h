@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableViewController.h"
 
-@interface ToDoTableViewController : UITableViewController
+@interface ToDoTableViewController : CoreDataTableViewController
 
 
 @end
