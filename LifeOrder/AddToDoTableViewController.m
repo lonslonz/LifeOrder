@@ -10,7 +10,7 @@
 
 @interface AddToDoTableViewController () <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (nonatomic, strong) NSArray* pickerData;
-@property (weak, nonatomic) IBOutlet UIPickerView *statusPicker;
+
 @end
 
 @implementation AddToDoTableViewController
@@ -22,9 +22,26 @@
     self.pickerData = @[@"Begin", @"End", @"Complete Order", @"Waiting delivery", @"Delaying delivery",
                         @"Problem with product", @"Requesting refund", @"Wating refund",  @"Close",
                         @"very very very very very very very long char"];
-    [self.statusPicker selectRow:0 inComponent:0 animated:YES];
-    self.statusSelected = self.pickerData[0];
     
+    int index;
+    if([self.statusStr length] > 0) {
+        index = [self findPickerIndexFromStatusStr:self.statusStr];
+    } else {
+        index = 0;
+        self.statusStr = self.pickerData[0];
+    }
+    self.toDoTextField.text = self.toDoStr;
+    [self.statusPicker selectRow:index inComponent:0 animated:YES];
+}
+
+- (int)findPickerIndexFromStatusStr:(NSString *)statusStr
+{
+    for(int i = 0; i <= [self.pickerData count] - 1; i++) {
+        if([self.pickerData[i] isEqualToString:statusStr]) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -38,14 +55,10 @@
 - (IBAction)cancel:(id)sender {
     NSLog(@"push cancel");
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (void)setPassedStr:(NSString *)passedStr
-{
-    NSLog(@"passedStr by Segue:%@", passedStr);
-    _passedStr = passedStr;
-}
 - (IBAction)addStatus:(id)sender {
     
 }
@@ -66,13 +79,13 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     NSLog(@"Selected Status : %d, %@", row, self.pickerData[row]);
-    self.statusSelected = self.pickerData[row];
+    self.statusStr = self.pickerData[row];
     
 }
 #pragma mark - Navigation
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if(![self.toDoTyped.text length]) {
+    if(![self.toDoTextField.text length]) {
         [self alert:@"Please type To Do field."];
         return false;
     }
@@ -84,7 +97,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"exit prepareForSegue. typed : %@, status : %@", self.toDoTyped.text, self.statusSelected);
+    NSLog(@"exit prepareForSegue. typed : %@, status : %@", self.toDoTextField.text, self.statusStr);
 }
 
 - (void)alert:(NSString *)message

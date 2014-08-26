@@ -15,6 +15,7 @@
 @interface ToDoTableViewController ()
 @property (nonatomic, strong) NSArray *defaultArray;
 @property (nonatomic, weak) NSManagedObjectContext *dbContext;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @end
 
 #define TABLE_NAME @"ToDo"
@@ -87,8 +88,15 @@
     //cell.textLabel.text = self.defaultArray[indexPath.row];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedIndexPath = indexPath;
+}
 
-
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+   // self.selectedIndexPath = indexPath;
+}
 
 #pragma mark - Navigation
 
@@ -96,8 +104,8 @@
 {
     if([segue.sourceViewController isKindOfClass:[AddToDoTableViewController class]]) {
         AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.sourceViewController;
-        NSLog(@"Pop results. typed : %@, selected : %@", addToDoVc.toDoTyped.text, addToDoVc.statusSelected);
-        [self insertToDo:addToDoVc.toDoTyped.text status:addToDoVc.statusSelected];
+        NSLog(@"Pop results. typed : %@, selected : %@", addToDoVc.toDoTextField.text, addToDoVc.statusStr);
+        [self insertToDo:addToDoVc.toDoTextField.text status:addToDoVc.statusStr];
     }
 }
 
@@ -111,9 +119,16 @@
         
        // if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
          if([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-            //AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
-            
-
+        }
+    }
+    else if([segue.identifier isEqualToString:@"UpdateToDoSegue"]) {
+        if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
+            AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
+            //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            addToDoVc.toDoStr = cell.textLabel.text;
+            addToDoVc.statusStr = cell.detailTextLabel.text;
         }
     }
 }
