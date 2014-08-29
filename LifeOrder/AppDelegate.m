@@ -20,6 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.dbContext = [DbCreator createMainQueueManagedObjectContext];
+    
     return YES;
 }
 // we do some stuff when our Photo database's context becomes available
@@ -36,6 +37,10 @@
     // it would make NO SENSE to listen to this radio station in a View Controller that was segued to, for example
     // (but that's okay because a segued-to View Controller would presumably be "prepared" by being given a context to work in)
 }
-
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    // Saves changes in the application's managed object context before the application terminates.
+    [DbCreator saveContext:self.dbContext];
+}
 
 @end

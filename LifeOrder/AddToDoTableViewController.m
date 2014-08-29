@@ -26,9 +26,11 @@
     int index;
     if([self.statusStr length] > 0) {
         index = [self findPickerIndexFromStatusStr:self.statusStr];
+        self.title = @"Update";
     } else {
         index = 0;
         self.statusStr = self.pickerData[0];
+        self.title = @"Add";
     }
     self.toDoTextField.text = self.toDoStr;
     [self.statusPicker selectRow:index inComponent:0 animated:YES];

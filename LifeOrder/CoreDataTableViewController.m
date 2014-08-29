@@ -111,7 +111,8 @@
 	   atIndexPath:(NSIndexPath *)indexPath
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath
-{		
+{
+	NSLog(@"didChangeObject of NSFetchedResultsController");
     switch(type)
     {
         case NSFetchedResultsChangeInsert:

@@ -23,6 +23,7 @@
 
 @implementation ToDoTableViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,12 +50,67 @@
                                                                         managedObjectContext:self.dbContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+    
+    NSString *homeDir = NSHomeDirectory();
+    NSLog(@"%@",homeDir);
 }
 
 - (NSManagedObjectContext *)getDbContextFromAppDelegate
 {
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     return appDelegate.dbContext;
+}
+#pragma mart - Order
+- (IBAction)edit:(id)sender {
+    [self.tableView setEditing:YES animated:YES];
+}
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+/*
+make the change to each of the object’s displayOrder attribute. Here is the code you use to re-order the results:
+- (void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toIndexPath:(NSIndexPath *)destinationIndexPath;
+{
+    NSMutableArray *things = [[fetchedResultsController fetchedObjects] mutableCopy];
+    
+    // Grab the item we're moving.
+    NSManagedObject *thing = [[self fetchedResultsController] objectAtIndexPath:sourceIndexPath];
+    
+    // Remove the object we're moving from the array.
+    [things removeObject:thing];
+    // Now re-insert it at the destination.
+    [things insertObject:thing atIndex:[destinationIndexPath row]];
+    
+    // All of the objects are now in their correct order. Update each
+    // object's displayOrder field by iterating through the array.
+    int i = 0;
+    for (NSManagedObject *mo in things)
+    {
+        [mo setValue:[NSNumber numberWithInt:i++] forKey:@"displayOrder"];
+    }
+    
+    [things release], things = nil;
+    
+    [managedObjectContext save:nil];
+}*/
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+ //   NSString *stringToMove = [self.reorderingRows objectAtIndex:sourceIndexPath.row];
+//    [self.reorderingRows removeObjectAtIndex:sourceIndexPath.row];
+//    [self.reorderingRows insertObject:stringToMove atIndex:destinationIndexPath.row];
+    NSLog(@"stringToMove:%d, destinaionIndexPath.row:%d", sourceIndexPath.row, destinationIndexPath.row);
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 
 #pragma mark - Table view data source
@@ -73,6 +129,7 @@
     return 3;
 }
 */
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToDoCell" forIndexPath:indexPath];
@@ -81,7 +138,7 @@
     
     cell.textLabel.text = toDo.toDo;
     cell.detailTextLabel.text = toDo.whichStatus.status;
-    
+    cell.showsReorderControl = YES;
     return cell;
     
     // Configure the cell...
@@ -91,12 +148,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndexPath = indexPath;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"UpdateToDoSegue" sender:cell];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
    // self.selectedIndexPath = indexPath;
+ //   [self performSegueWithIdentifier:@"UpdateToDoSegue" sender:self];
+    NSLog(@"tapped acc button");
 }
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    [self performSegueWithIdentifier:@"UpdateToDoSegue" sender:self];
+////    [[self navigationController] pushViewController:<#(UIViewController *)#> animated:YES];
+//}
+
 
 #pragma mark - Navigation
 
@@ -115,6 +183,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    NSLog(@"prepareForSegue");
     if([segue.identifier isEqualToString:@"AddToDoSegue"]) {
         
        // if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
@@ -136,13 +205,36 @@
 #pragma mark - Database
 - (ToDo *)insertToDo:(NSString *)toDoText status:(NSString *)status
 {
-    ToDo *toDoObj = [NSEntityDescription insertNewObjectForEntityForName:@"ToDo"
-                                              inManagedObjectContext:self.dbContext];
-    toDoObj.toDo = toDoText;
-    toDoObj.updateDate = [NSDate date];
-    toDoObj.group = nil;
-    toDoObj.order = 0;
-    toDoObj.whichStatus = [self insertStatus:status];
+    NSFetchRequest *selectRequest = [NSFetchRequest fetchRequestWithEntityName:@"ToDo"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"toDo = %@",toDoText];
+    selectRequest.predicate = predicate;
+    NSError *error;
+    NSArray *matches = [self.dbContext executeFetchRequest:selectRequest error:&error];
+    
+    ToDo *toDoObj = nil;
+    if(!matches || error || ([matches count] > 1)) {
+    } else if([matches count] == 1) {
+        // update
+        toDoObj = [matches firstObject];
+        toDoObj.toDo = toDoText;
+        
+    } else {
+     
+        toDoObj = [NSEntityDescription insertNewObjectForEntityForName:@"ToDo"
+                                                  inManagedObjectContext:self.dbContext];
+        toDoObj.toDo = toDoText;
+        toDoObj.updateDate = [NSDate date];
+        toDoObj.group = nil;
+        toDoObj.order = 0;
+        toDoObj.whichStatus = [self insertStatus:status];
+        
+        
+    }
+    
+    if(![self.dbContext save:&error]) {
+        NSLog(@"error when saving : %@", [error localizedDescription]);
+    }
+    
     return toDoObj;
 }
 

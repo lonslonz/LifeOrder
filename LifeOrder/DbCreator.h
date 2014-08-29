@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface DbCreator : NSObject
+
 + (NSManagedObjectContext *)createMainQueueManagedObjectContext;
++ (void)saveContext:(NSManagedObjectContext *)managedObjectContext;
+
 @end

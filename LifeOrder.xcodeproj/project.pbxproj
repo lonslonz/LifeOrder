@@ -30,7 +30,6 @@
 		F70C753B19A8FB6900EF3529 /* ToDo.m in Sources */ = {isa = PBXBuildFile; fileRef = F70C753A19A8FB6900EF3529 /* ToDo.m */; };
 		F70C753E19A8FB6900EF3529 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = F70C753D19A8FB6900EF3529 /* Status.m */; };
 		F70C754119AB71A200EF3529 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F70C754019AB71A200EF3529 /* CoreDataTableViewController.m */; };
-		F7C92B2619A60FD00030C710 /* CreateToDoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */; };
 		F7C92B2919A642950030C710 /* AddToDoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C92B2819A642950030C710 /* AddToDoTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -79,8 +78,6 @@
 		F70C753D19A8FB6900EF3529 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
 		F70C753F19AB71A200EF3529 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		F70C754019AB71A200EF3529 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
-		F7C92B2419A60FD00030C710 /* CreateToDoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateToDoViewController.h; sourceTree = "<group>"; };
-		F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateToDoViewController.m; sourceTree = "<group>"; };
 		F7C92B2719A642950030C710 /* AddToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToDoTableViewController.h; sourceTree = "<group>"; };
 		F7C92B2819A642950030C710 /* AddToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToDoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,8 +189,6 @@
 			children = (
 				F70C753F19AB71A200EF3529 /* CoreDataTableViewController.h */,
 				F70C754019AB71A200EF3529 /* CoreDataTableViewController.m */,
-				F7C92B2419A60FD00030C710 /* CreateToDoViewController.h */,
-				F7C92B2519A60FD00030C710 /* CreateToDoViewController.m */,
 				75D7C82319A4391E00ACF7BD /* ViewController.h */,
 				75D7C82419A4391E00ACF7BD /* ViewController.m */,
 				75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */,
@@ -318,7 +313,6 @@
 			files = (
 				F70C753519A89D7900EF3529 /* DbCreator.m in Sources */,
 				75D7C82519A4391E00ACF7BD /* ViewController.m in Sources */,
-				F7C92B2619A60FD00030C710 /* CreateToDoViewController.m in Sources */,
 				75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */,
 				F70C751A19A8831000EF3529 /* DataModel.xcdatamodeld in Sources */,
 				F70C753819A8FB6800EF3529 /* Memo.m in Sources */,
