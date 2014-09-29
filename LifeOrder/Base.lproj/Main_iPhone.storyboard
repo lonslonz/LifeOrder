@@ -49,7 +49,7 @@
                     <navigationItem key="navigationItem" title="To do" id="ytd-7m-hlk">
                         <barButtonItem key="leftBarButtonItem" title="Reorder" id="rqD-rK-0V9">
                             <connections>
-                                <action selector="edit:" destination="maP-Xu-G1j" id="4BS-2Z-rxb"/>
+                                <action selector="reorder:" destination="maP-Xu-G1j" id="zoT-vj-aLI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0WV-7G-Qcy">
@@ -419,6 +419,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="giC-gG-nff"/>
+        <segue reference="4n8-BU-snG"/>
     </inferredMetricsTieBreakers>
 </document>

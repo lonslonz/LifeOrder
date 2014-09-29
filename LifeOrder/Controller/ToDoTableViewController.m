@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSArray *defaultArray;
 @property (nonatomic, weak) NSManagedObjectContext *dbContext;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, weak) ToDo *currToDo;
+@property (nonatomic, assign) BOOL reorderMode;
 @end
 
 #define TABLE_NAME @"ToDo"
@@ -37,13 +39,14 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.reorderMode = NO;
 }
 
 - (void)setUpFetchResultController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:TABLE_NAME];
-    request.predicate = [NSPredicate predicateWithFormat:@"whichStatus != %@", STATUS_END];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"updateDate"
+    request.predicate = [NSPredicate predicateWithFormat:@"whichStatus.status != %@", STATUS_END];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"order"
                                                               ascending:YES]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -61,8 +64,18 @@
     return appDelegate.dbContext;
 }
 #pragma mart - Order
-- (IBAction)edit:(id)sender {
-    [self.tableView setEditing:YES animated:YES];
+
+- (IBAction)reorder:(UIBarButtonItem *)sender {
+    if(!self.reorderMode) {
+        sender.title = @"Done";
+        self.reorderMode = YES;
+        [self.tableView setEditing:YES animated:YES];
+    } else {
+        sender.title = @"Reorder";
+        self.reorderMode = NO;
+        [self.tableView setEditing:NO animated:YES];
+    }
+   
 }
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -101,6 +114,28 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 //    [self.reorderingRows removeObjectAtIndex:sourceIndexPath.row];
 //    [self.reorderingRows insertObject:stringToMove atIndex:destinationIndexPath.row];
     NSLog(@"stringToMove:%d, destinaionIndexPath.row:%d", sourceIndexPath.row, destinationIndexPath.row);
+    NSInteger fromIndex = sourceIndexPath.row;
+    NSInteger toIndex = destinationIndexPath.row;
+    
+    if(fromIndex == toIndex) {
+        return;
+    }
+    
+    if(fromIndex < toIndex) { // move down
+//        fromIndex + 1 ~ toIndex
+//        diff = -1
+//        fromIndex <= toIndex's order
+//        fromIndex.order = toIndex.order;
+//        updateOrder(fromIndex + 1, toIndex, diff);
+        
+    } else { // move up
+//        toIndex + 1 ~ fromIndex - 1
+//        +1
+//        fromIndex <= toIndex's order
+//        fromIndex = toIndex.order;
+//    updateOrder:toIndex + 1 fromIndex -1, +1
+    }
+    [self resetOrder];
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleNone;
@@ -112,23 +147,39 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
+#pragma mark - fetched data management
+- (void)resetOrder
+{
+    NSArray *objs = [self.fetchedResultsController fetchedObjects];
+    NSInteger count = 1;
+    for(ToDo *item in objs) {
+        item.order = @(count);
+        count++;
+    }
+}
+- (ToDo *)findToDoByOrder:(NSInteger)order
+{
+    NSArray *objs = [self.fetchedResultsController fetchedObjects];
+    for(ToDo *item in objs) {
+        if([item.order isEqual:@(order)]) {
+            return item;
+        }
+    }
+    return nil;
+}
+
+- (ToDo *)findToDoByName:toDo
+{
+    NSArray *objs = [self.fetchedResultsController fetchedObjects];
+    for(ToDo *item in objs) {
+        if([item.toDo isEqualToString:toDo]) {
+            return item;
+        }
+    }
+    return nil;
+}
 
 #pragma mark - Table view data source
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 3;
-}
-*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -136,19 +187,18 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     
     ToDo *toDo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = toDo.toDo;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", toDo.toDo, toDo.order];
     cell.detailTextLabel.text = toDo.whichStatus.status;
     cell.showsReorderControl = YES;
     return cell;
-    
-    // Configure the cell...
-    //cell.textLabel.text = self.defaultArray[indexPath.row];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndexPath = indexPath;
+    NSLog(@"selected row when didSelected :%d", self.selectedIndexPath.row);
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    self.currToDo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"UpdateToDoSegue" sender:cell];
 }
 
@@ -165,15 +215,28 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 ////    [[self navigationController] pushViewController:<#(UIViewController *)#> animated:YES];
 //}
 
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [super controllerDidChangeContent:controller];
+    
+}
 
 #pragma mark - Navigation
 
 - (IBAction)addToDo:(UIStoryboardSegue *)segue
 {
     if([segue.sourceViewController isKindOfClass:[AddToDoTableViewController class]]) {
+        
         AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.sourceViewController;
         NSLog(@"Pop results. typed : %@, selected : %@", addToDoVc.toDoTextField.text, addToDoVc.statusStr);
-        [self insertToDo:addToDoVc.toDoTextField.text status:addToDoVc.statusStr];
+
+        ToDo *tempToDo = (ToDo *)[[self.fetchedResultsController fetchedObjects] lastObject];
+        [self insertOrUpdateToDo:addToDoVc.toDoTextField.text
+                          status:addToDoVc.statusStr
+                           order:[tempToDo.order integerValue]+ 1];
+        
+        NSLog(@"selected row when prepareForSegue :%d", self.selectedIndexPath.row);
+ //       [self.tableView reloadData];
     }
 }
 
@@ -186,51 +249,54 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     NSLog(@"prepareForSegue");
     if([segue.identifier isEqualToString:@"AddToDoSegue"]) {
         
-       // if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
-         if([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+        // if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
+        if([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
         }
+        
+        self.currToDo = nil;
     }
     else if([segue.identifier isEqualToString:@"UpdateToDoSegue"]) {
         if([segue.destinationViewController isKindOfClass:[AddToDoTableViewController class]]) {
             AddToDoTableViewController *addToDoVc = (AddToDoTableViewController *)segue.destinationViewController;
-            //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            addToDoVc.toDoStr = cell.textLabel.text;
-            addToDoVc.statusStr = cell.detailTextLabel.text;
+
+         //   NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+ 
+            addToDoVc.toDoStr = self.currToDo.toDo;
+            addToDoVc.statusStr = self.currToDo.whichStatus.status;
+            
+
         }
     }
 }
 
 #pragma mark - Database
-- (ToDo *)insertToDo:(NSString *)toDoText status:(NSString *)status
+- (ToDo *)insertOrUpdateToDo:(NSString *)newToDoText status:(NSString *)newStatus order:(NSInteger)newOrder
 {
-    NSFetchRequest *selectRequest = [NSFetchRequest fetchRequestWithEntityName:@"ToDo"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"toDo = %@",toDoText];
-    selectRequest.predicate = predicate;
-    NSError *error;
-    NSArray *matches = [self.dbContext executeFetchRequest:selectRequest error:&error];
-    
+//    NSFetchRequest *selectRequest = [NSFetchRequest fetchRequestWithEntityName:@"ToDo"];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"toDo = %@", self.currToDo.toDo];
+//    selectRequest.predicate = predicate;
+//    NSError *error;
+//    NSArray *matches = [self.dbContext executeFetchRequest:selectRequest error:&error];
+
+    ToDo *matches = [self findToDoByName:self.currToDo.toDo];
     ToDo *toDoObj = nil;
-    if(!matches || error || ([matches count] > 1)) {
-    } else if([matches count] == 1) {
+    if(matches) {
         // update
-        toDoObj = [matches firstObject];
-        toDoObj.toDo = toDoText;
-        
+        toDoObj = matches;
+        toDoObj.toDo = newToDoText;
+        toDoObj.whichStatus.status = newStatus;
+        NSLog(@"update new order : %@", toDoObj.order);
     } else {
-     
         toDoObj = [NSEntityDescription insertNewObjectForEntityForName:@"ToDo"
                                                   inManagedObjectContext:self.dbContext];
-        toDoObj.toDo = toDoText;
+        toDoObj.toDo = newToDoText;
         toDoObj.updateDate = [NSDate date];
         toDoObj.group = nil;
-        toDoObj.order = 0;
-        toDoObj.whichStatus = [self insertStatus:status];
-        
-        
+        toDoObj.order = @(newOrder);
+        toDoObj.whichStatus = [self createNewStatus:newStatus];
+        NSLog(@"insert new order : %@", toDoObj.order);
     }
-    
+    NSError *error;
     if(![self.dbContext save:&error]) {
         NSLog(@"error when saving : %@", [error localizedDescription]);
     }
@@ -238,11 +304,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     return toDoObj;
 }
 
-- (Status *)insertStatus:(NSString *)status
+- (Status *)createNewStatus:(NSString *)newStatus
 {
     Status *statusObj = [NSEntityDescription insertNewObjectForEntityForName:@"Status"
                                                       inManagedObjectContext:self.dbContext];
-    statusObj.status = status;
+    statusObj.status = newStatus;
     statusObj.group = nil;
     statusObj.order = 0;
     statusObj.updateDate = [NSDate date];

@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface AddToDoTableViewController : UITableViewController
-@property (nonatomic, strong) NSString* toDoStr;
+
+@property (nonatomic, strong) NSString *toDoStr;
 @property (strong, nonatomic) NSString *statusStr;
 
 @property (weak, nonatomic) IBOutlet UITextField *toDoTextField;
