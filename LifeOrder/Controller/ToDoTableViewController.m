@@ -70,10 +70,16 @@
         sender.title = @"Done";
         self.reorderMode = YES;
         [self.tableView setEditing:YES animated:YES];
-    } else {
+    } else { // done
         sender.title = @"Reorder";
         self.reorderMode = NO;
         [self.tableView setEditing:NO animated:YES];
+        
+        //save all
+        NSError *error;
+        if(![self.dbContext save:&error]) {
+            NSLog(@"error when saving : %@", [error localizedDescription]);
+        }
     }
    
 }
@@ -81,34 +87,7 @@
 {
     return YES;
 }
-/*
-make the change to each of the object’s displayOrder attribute. Here is the code you use to re-order the results:
-- (void)tableView:(UITableView *)tableView
-moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-      toIndexPath:(NSIndexPath *)destinationIndexPath;
-{
-    NSMutableArray *things = [[fetchedResultsController fetchedObjects] mutableCopy];
-    
-    // Grab the item we're moving.
-    NSManagedObject *thing = [[self fetchedResultsController] objectAtIndexPath:sourceIndexPath];
-    
-    // Remove the object we're moving from the array.
-    [things removeObject:thing];
-    // Now re-insert it at the destination.
-    [things insertObject:thing atIndex:[destinationIndexPath row]];
-    
-    // All of the objects are now in their correct order. Update each
-    // object's displayOrder field by iterating through the array.
-    int i = 0;
-    for (NSManagedObject *mo in things)
-    {
-        [mo setValue:[NSNumber numberWithInt:i++] forKey:@"displayOrder"];
-    }
-    
-    [things release], things = nil;
-    
-    [managedObjectContext save:nil];
-}*/
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
  //   NSString *stringToMove = [self.reorderingRows objectAtIndex:sourceIndexPath.row];
 //    [self.reorderingRows removeObjectAtIndex:sourceIndexPath.row];
@@ -117,25 +96,28 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     NSInteger fromIndex = sourceIndexPath.row;
     NSInteger toIndex = destinationIndexPath.row;
     
-    if(fromIndex == toIndex) {
+    NSInteger diff = toIndex - fromIndex;
+    if(diff == 0) {
         return;
     }
     
-    if(fromIndex < toIndex) { // move down
-//        fromIndex + 1 ~ toIndex
-//        diff = -1
-//        fromIndex <= toIndex's order
-//        fromIndex.order = toIndex.order;
-//        updateOrder(fromIndex + 1, toIndex, diff);
+    if(diff > 0) { // move down
+        ToDo *fromToDo = [self findToDoByIndex:fromIndex];
+        fromToDo.order = @(diff + [fromToDo.order intValue]);
         
+        for(NSInteger i = fromIndex + 1; i <= toIndex; i++) {
+            ToDo *current = [self findToDoByIndex:i];
+            current.order = @([current.order intValue] - 1);
+        }
     } else { // move up
-//        toIndex + 1 ~ fromIndex - 1
-//        +1
-//        fromIndex <= toIndex's order
-//        fromIndex = toIndex.order;
-//    updateOrder:toIndex + 1 fromIndex -1, +1
+        ToDo *fromToDo = [self findToDoByIndex:fromIndex];
+        fromToDo.order = @(diff + [fromToDo.order intValue]);
+        
+        for(NSInteger i = toIndex; i < fromIndex; i++) {
+            ToDo *current = [self findToDoByIndex:i];
+            current.order = @([current.order intValue] + 1);
+        }
     }
-    [self resetOrder];
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleNone;
@@ -168,7 +150,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     return nil;
 }
 
-- (ToDo *)findToDoByName:toDo
+- (ToDo *)findToDoByName:(NSString *)toDo
 {
     NSArray *objs = [self.fetchedResultsController fetchedObjects];
     for(ToDo *item in objs) {
@@ -178,7 +160,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }
     return nil;
 }
-
+- (ToDo *)findToDoByIndex:(NSInteger)index
+{
+    NSArray *objs = [self.fetchedResultsController fetchedObjects];
+    return [objs objectAtIndex:index];
+}
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

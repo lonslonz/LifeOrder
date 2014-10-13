@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32F4ACE66F972DB423F5156D /* libPods-LifeOrder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF5B54027196F6D9F86937E /* libPods-LifeOrder.a */; };
 		75D7C80C19A4391E00ACF7BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D7C80B19A4391E00ACF7BD /* Foundation.framework */; };
 		75D7C80E19A4391E00ACF7BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D7C80D19A4391E00ACF7BD /* CoreGraphics.framework */; };
 		75D7C81019A4391E00ACF7BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D7C80F19A4391E00ACF7BD /* UIKit.framework */; };
@@ -23,6 +24,9 @@
 		75D7C83819A4391E00ACF7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75D7C83619A4391E00ACF7BD /* InfoPlist.strings */; };
 		75D7C83A19A4391E00ACF7BD /* LifeOrderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */; };
 		75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */; };
+		75EC45F419DBB02800DF702C /* MemoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC45F319DBB02800DF702C /* MemoCollectionViewController.m */; };
+		75EC45F719E4E36400DF702C /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC45F619E4E36400DF702C /* VideoTableViewController.m */; };
+		75EC45F919E789E900DF702C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75EC45F819E789E900DF702C /* JavaScriptCore.framework */; };
 		F70C751A19A8831000EF3529 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F70C751819A8831000EF3529 /* DataModel.xcdatamodeld */; };
 		F70C752F19A8987800EF3529 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70C752E19A8987800EF3529 /* CoreData.framework */; };
 		F70C753519A89D7900EF3529 /* DbCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = F70C753419A89D7900EF3529 /* DbCreator.m */; };
@@ -44,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1EDA04C809654E1EDE400AF9 /* Pods-LifeOrder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeOrder.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeOrder/Pods-LifeOrder.release.xcconfig"; sourceTree = "<group>"; };
+		4BF5B54027196F6D9F86937E /* libPods-LifeOrder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LifeOrder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D7C80819A4391E00ACF7BD /* LifeOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D7C80B19A4391E00ACF7BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		75D7C80D19A4391E00ACF7BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -66,6 +72,11 @@
 		75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeOrderTests.m; sourceTree = "<group>"; };
 		75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToDoTableViewController.h; path = Controller/ToDoTableViewController.h; sourceTree = "<group>"; };
 		75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToDoTableViewController.m; path = Controller/ToDoTableViewController.m; sourceTree = "<group>"; };
+		75EC45F219DBB02800DF702C /* MemoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoCollectionViewController.h; path = Controller/MemoCollectionViewController.h; sourceTree = "<group>"; };
+		75EC45F319DBB02800DF702C /* MemoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoCollectionViewController.m; path = Controller/MemoCollectionViewController.m; sourceTree = "<group>"; };
+		75EC45F519E4E36400DF702C /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoTableViewController.h; path = Controller/VideoTableViewController.h; sourceTree = "<group>"; };
+		75EC45F619E4E36400DF702C /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoTableViewController.m; path = Controller/VideoTableViewController.m; sourceTree = "<group>"; };
+		75EC45F819E789E900DF702C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F70C751919A8831000EF3529 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		F70C752E19A8987800EF3529 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F70C753319A89D7900EF3529 /* DbCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbCreator.h; sourceTree = "<group>"; };
@@ -80,6 +91,7 @@
 		F70C754019AB71A200EF3529 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		F7C92B2719A642950030C710 /* AddToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToDoTableViewController.h; sourceTree = "<group>"; };
 		F7C92B2819A642950030C710 /* AddToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToDoTableViewController.m; sourceTree = "<group>"; };
+		FC8E8A88E005390D323C6487 /* Pods-LifeOrder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeOrder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LifeOrder/Pods-LifeOrder.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +99,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75EC45F919E789E900DF702C /* JavaScriptCore.framework in Frameworks */,
 				F70C752F19A8987800EF3529 /* CoreData.framework in Frameworks */,
 				75D7C80E19A4391E00ACF7BD /* CoreGraphics.framework in Frameworks */,
 				75D7C81019A4391E00ACF7BD /* UIKit.framework in Frameworks */,
 				75D7C80C19A4391E00ACF7BD /* Foundation.framework in Frameworks */,
+				32F4ACE66F972DB423F5156D /* libPods-LifeOrder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7526DBA3A2EBFB30FCA3FDF7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FC8E8A88E005390D323C6487 /* Pods-LifeOrder.debug.xcconfig */,
+				1EDA04C809654E1EDE400AF9 /* Pods-LifeOrder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		75D7C7FF19A4391E00ACF7BD = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +137,7 @@
 				75D7C83319A4391E00ACF7BD /* LifeOrderTests */,
 				75D7C80A19A4391E00ACF7BD /* Frameworks */,
 				75D7C80919A4391E00ACF7BD /* Products */,
+				7526DBA3A2EBFB30FCA3FDF7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,11 +153,13 @@
 		75D7C80A19A4391E00ACF7BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75EC45F819E789E900DF702C /* JavaScriptCore.framework */,
 				F70C752E19A8987800EF3529 /* CoreData.framework */,
 				75D7C80B19A4391E00ACF7BD /* Foundation.framework */,
 				75D7C80D19A4391E00ACF7BD /* CoreGraphics.framework */,
 				75D7C80F19A4391E00ACF7BD /* UIKit.framework */,
 				75D7C82D19A4391E00ACF7BD /* XCTest.framework */,
+				4BF5B54027196F6D9F86937E /* libPods-LifeOrder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -187,6 +213,8 @@
 		75D7C84619A59EFF00ACF7BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				75EC45F519E4E36400DF702C /* VideoTableViewController.h */,
+				75EC45F619E4E36400DF702C /* VideoTableViewController.m */,
 				F70C753F19AB71A200EF3529 /* CoreDataTableViewController.h */,
 				F70C754019AB71A200EF3529 /* CoreDataTableViewController.m */,
 				75D7C82319A4391E00ACF7BD /* ViewController.h */,
@@ -195,6 +223,8 @@
 				75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */,
 				F7C92B2719A642950030C710 /* AddToDoTableViewController.h */,
 				F7C92B2819A642950030C710 /* AddToDoTableViewController.m */,
+				75EC45F219DBB02800DF702C /* MemoCollectionViewController.h */,
+				75EC45F319DBB02800DF702C /* MemoCollectionViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -220,9 +250,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75D7C83D19A4391E00ACF7BD /* Build configuration list for PBXNativeTarget "LifeOrder" */;
 			buildPhases = (
+				F8B1D8BFE0AFC76288FCCCA0 /* Check Pods Manifest.lock */,
 				75D7C80419A4391E00ACF7BD /* Sources */,
 				75D7C80519A4391E00ACF7BD /* Frameworks */,
 				75D7C80619A4391E00ACF7BD /* Resources */,
+				374AE4821B90B0D5948093C6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,17 +338,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		374AE4821B90B0D5948093C6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LifeOrder/Pods-LifeOrder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8B1D8BFE0AFC76288FCCCA0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		75D7C80419A4391E00ACF7BD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F70C753519A89D7900EF3529 /* DbCreator.m in Sources */,
+				75EC45F719E4E36400DF702C /* VideoTableViewController.m in Sources */,
 				75D7C82519A4391E00ACF7BD /* ViewController.m in Sources */,
 				75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */,
 				F70C751A19A8831000EF3529 /* DataModel.xcdatamodeld in Sources */,
 				F70C753819A8FB6800EF3529 /* Memo.m in Sources */,
 				F70C753E19A8FB6900EF3529 /* Status.m in Sources */,
+				75EC45F419DBB02800DF702C /* MemoCollectionViewController.m in Sources */,
 				F70C754119AB71A200EF3529 /* CoreDataTableViewController.m in Sources */,
 				75D7C81C19A4391E00ACF7BD /* AppDelegate.m in Sources */,
 				75D7C81819A4391E00ACF7BD /* main.m in Sources */,
@@ -453,6 +520,7 @@
 		};
 		75D7C83E19A4391E00ACF7BD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC8E8A88E005390D323C6487 /* Pods-LifeOrder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -466,6 +534,7 @@
 		};
 		75D7C83F19A4391E00ACF7BD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EDA04C809654E1EDE400AF9 /* Pods-LifeOrder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
