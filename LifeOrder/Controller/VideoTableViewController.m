@@ -8,6 +8,7 @@
 
 #import "VideoTableViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import "SubRipParser.h"
 
 @interface VideoTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -15,10 +16,17 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *captionTableView;
 @property(nonatomic, strong) NSArray *data;
+@property(nonatomic, strong) NSString *captionText;
+@property(nonatomic, strong) NSArray *captionItems;
 @end
 
 @implementation VideoTableViewController
 
+/*
+ Todo : 
+ - click 시 jump 하기
+ - 말하는 부분을 빨간 색으로 보여주기
+ */
 
 - (void)viewDidLoad
 {
@@ -45,7 +53,27 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     //[self loadRequestFromString:@"http://www.google.com"];
+    self.captionText = [self readSrc:@"Steve" extentsion:@"srt"];
+    id myRipParser = [[SubRipParser alloc] initWithSubRipContent:self.captionText];
+    [myRipParser parseWithBlock:^(BOOL success, SubRipItems *items) {
+        self.captionItems = [items items];
+//        for(SubRipItem *myItem in [items items]) {
+//
+//            NSLog(@"%d", [myItem subtitleNumber]);
+//            NSLog(@"%f", [myItem startTime]);
+//            NSLog(@"%f", [myItem endTime]);
+//            NSLog(@"%@", [myItem text]);
+//        }
+    }];
+    
 }
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    [self.captionTableView reloadData];
+}
+
 - (void)loadRequestFromString:(NSString*)urlString
 {
     NSURL *url = [NSURL URLWithString:urlString];
@@ -59,6 +87,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSString *)readSrc:(NSString *)fileName extentsion:(NSString *)extention
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:extention];
+    
+    NSError *error;
+    NSString *strFileContent = [NSString stringWithContentsOfFile:path
+                                                         encoding:NSUTF8StringEncoding error:&error];
+    
+    if(error) {  //Handle error
+        NSLog(@"error when reading");
+    }
+    
+    NSLog(@"File content : %@ ", strFileContent);
+
+    return strFileContent;
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -70,28 +114,22 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.data count];
+    return [self.captionItems count];
+    //return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell ;
-  
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"videoPlay" forIndexPath:indexPath];
-//        
-//        // Configure the cell...
-//       // cell.textLabel.text = [self.data objectAtIndex:indexPath.row];
-//      //   cell.textLabel.text = @"Video cell";
-//        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,200,100)];
-//        [webView loadHTMLString:@"web <b>View</b><br><br>my View<br>" baseURL:nil];
-//        webView.userInteractionEnabled = YES;
-//        [cell.contentView addSubview:webView];
-//         [webView.scrollView setBounces:NO];
-
     cell = [tableView dequeueReusableCellWithIdentifier:@"caption" forIndexPath:indexPath];
     
-    // Configure the cell...
-    cell.textLabel.text = [self.data objectAtIndex:indexPath.row];
+    NSLog(@"%@", self.captionItems);
+    NSLog(@"%@", [[self.captionItems objectAtIndex:indexPath.row] text]);
+    cell.textLabel.text = [[self.captionItems objectAtIndex:indexPath.row] text];
+    //cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0];
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping; // Pre-iOS6 use UILineBreakModeWordWrap
+    cell.textLabel.numberOfLines = 0;  // 0 means no max.
+    //cell.textLabel.text = [self.data objectAtIndex:indexPath.row];
 
     
     

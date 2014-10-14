@@ -24,6 +24,8 @@
 		75D7C83819A4391E00ACF7BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75D7C83619A4391E00ACF7BD /* InfoPlist.strings */; };
 		75D7C83A19A4391E00ACF7BD /* LifeOrderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */; };
 		75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */; };
+		75E8E75519ECCBC2004E33B9 /* SubRipParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E8E75419ECCBC2004E33B9 /* SubRipParser.m */; };
+		75E8E75719ECCFF3004E33B9 /* Steve.srt in Resources */ = {isa = PBXBuildFile; fileRef = 75E8E75619ECCFF3004E33B9 /* Steve.srt */; };
 		75EC45F419DBB02800DF702C /* MemoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC45F319DBB02800DF702C /* MemoCollectionViewController.m */; };
 		75EC45F719E4E36400DF702C /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC45F619E4E36400DF702C /* VideoTableViewController.m */; };
 		75EC45F919E789E900DF702C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75EC45F819E789E900DF702C /* JavaScriptCore.framework */; };
@@ -72,6 +74,9 @@
 		75D7C83919A4391E00ACF7BD /* LifeOrderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeOrderTests.m; sourceTree = "<group>"; };
 		75D7C84319A59E5E00ACF7BD /* ToDoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToDoTableViewController.h; path = Controller/ToDoTableViewController.h; sourceTree = "<group>"; };
 		75D7C84419A59E5E00ACF7BD /* ToDoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToDoTableViewController.m; path = Controller/ToDoTableViewController.m; sourceTree = "<group>"; };
+		75E8E75319ECCBC2004E33B9 /* SubRipParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubRipParser.h; sourceTree = "<group>"; };
+		75E8E75419ECCBC2004E33B9 /* SubRipParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubRipParser.m; sourceTree = "<group>"; };
+		75E8E75619ECCFF3004E33B9 /* Steve.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Steve.srt; sourceTree = "<group>"; };
 		75EC45F219DBB02800DF702C /* MemoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoCollectionViewController.h; path = Controller/MemoCollectionViewController.h; sourceTree = "<group>"; };
 		75EC45F319DBB02800DF702C /* MemoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoCollectionViewController.m; path = Controller/MemoCollectionViewController.m; sourceTree = "<group>"; };
 		75EC45F519E4E36400DF702C /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoTableViewController.h; path = Controller/VideoTableViewController.h; sourceTree = "<group>"; };
@@ -167,6 +172,9 @@
 		75D7C81119A4391E00ACF7BD /* LifeOrder */ = {
 			isa = PBXGroup;
 			children = (
+				75E8E75619ECCFF3004E33B9 /* Steve.srt */,
+				75E8E75319ECCBC2004E33B9 /* SubRipParser.h */,
+				75E8E75419ECCBC2004E33B9 /* SubRipParser.m */,
 				F70C752419A88C1200EF3529 /* DataModel */,
 				75D7C84619A59EFF00ACF7BD /* Controller */,
 				75D7C81A19A4391E00ACF7BD /* AppDelegate.h */,
@@ -324,6 +332,7 @@
 				75D7C82219A4391E00ACF7BD /* Main_iPad.storyboard in Resources */,
 				75D7C82719A4391E00ACF7BD /* Images.xcassets in Resources */,
 				75D7C81F19A4391E00ACF7BD /* Main_iPhone.storyboard in Resources */,
+				75E8E75719ECCFF3004E33B9 /* Steve.srt in Resources */,
 				75D7C81619A4391E00ACF7BD /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +388,7 @@
 				F70C753519A89D7900EF3529 /* DbCreator.m in Sources */,
 				75EC45F719E4E36400DF702C /* VideoTableViewController.m in Sources */,
 				75D7C82519A4391E00ACF7BD /* ViewController.m in Sources */,
+				75E8E75519ECCBC2004E33B9 /* SubRipParser.m in Sources */,
 				75D7C84519A59E5E00ACF7BD /* ToDoTableViewController.m in Sources */,
 				F70C751A19A8831000EF3529 /* DataModel.xcdatamodeld in Sources */,
 				F70C753819A8FB6800EF3529 /* Memo.m in Sources */,
