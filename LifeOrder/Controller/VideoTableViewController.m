@@ -18,6 +18,9 @@
 @property(nonatomic, strong) NSArray *data;
 @property(nonatomic, strong) NSString *captionText;
 @property(nonatomic, strong) NSArray *captionItems;
+@property(nonatomic, assign, getter=isInit) bool init;
+@property(nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
+@property(nonatomic, strong) NSTimer *captionTimer;
 @end
 
 @implementation VideoTableViewController
@@ -27,51 +30,72 @@
  - click 시 jump 하기
  - 말하는 부분을 빨간 색으로 보여주기
  */
-
+- (IBAction)clickScroll:(id)sender {
+    
+    [self mapCaption];
+}
+- (void)mapCaption {
+    
+    NSTimeInterval currentTime = self.videoPlayerViewController.moviePlayer.currentPlaybackTime;
+    if(isnan(currentTime)) {
+        return;
+    }
+    
+    NSLog(@"%f", self.videoPlayerViewController.moviePlayer.currentPlaybackTime);
+    NSInteger i;
+    for(i = 0; i < [self.captionItems count]; i++) {
+        SubRipItem *item = [self.captionItems objectAtIndex:i];
+        if(currentTime <= item.endTime) {
+            break;
+        }
+    }
+    if(i > [self.captionItems count]) {
+        return;
+    }
+    NSIndexPath *myPos = [NSIndexPath indexPathForRow:i inSection:0];
+    
+    
+    [self.captionTableView scrollToRowAtIndexPath:myPos atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    // Custom initialization
-    if(self.data == nil) {
-        self.data = @[@"1", @"2", @"3", @"caption", @"caption2", @"caption3", @"caoption4"];
-    }
-
-    
-    XCDYouTubeVideoPlayerViewController *videoPlayerViewController =
-        [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:@"vN4U5FqrOdQ"];
-    [videoPlayerViewController presentInView:self.videoView];
-    [videoPlayerViewController.moviePlayer play];
+    self.videoPlayerViewController =
+        [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:@"MnrJzXM7a6o"];
+    [self.videoPlayerViewController presentInView:self.videoView];
+    [self.videoPlayerViewController.moviePlayer play];
     
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    //[self loadRequestFromString:@"http://www.google.com"];
     self.captionText = [self readSrc:@"Steve" extentsion:@"srt"];
     id myRipParser = [[SubRipParser alloc] initWithSubRipContent:self.captionText];
-    [myRipParser parseWithBlock:^(BOOL success, SubRipItems *items) {
+    [myRipParser parseWithBlockSync:^(BOOL success, SubRipItems *items) {
         self.captionItems = [items items];
-//        for(SubRipItem *myItem in [items items]) {
-//
-//            NSLog(@"%d", [myItem subtitleNumber]);
-//            NSLog(@"%f", [myItem startTime]);
-//            NSLog(@"%f", [myItem endTime]);
-//            NSLog(@"%@", [myItem text]);
-//        }
     }];
+    self.init = NO;
+    NSLog(@"self init : %i", self.init);
     
+    self.captionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                         target:self
+                                                       selector:@selector(mapCaption)
+                                                       userInfo:nil
+                                                        repeats:YES];
+}
+- (void)awakeFromNib
+{
+   // self.init = NO;
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     
     [super viewDidAppear:animated];
-    [self.captionTableView reloadData];
+    NSLog(@"self init : %i", self.init);
+    if(self.init == NO) {
+        [self.captionTableView reloadData];
+    }
+    self.init = YES;
 }
 
 - (void)loadRequestFromString:(NSString*)urlString
@@ -123,17 +147,33 @@
     UITableViewCell *cell ;
     cell = [tableView dequeueReusableCellWithIdentifier:@"caption" forIndexPath:indexPath];
     
-    NSLog(@"%@", self.captionItems);
-    NSLog(@"%@", [[self.captionItems objectAtIndex:indexPath.row] text]);
-    cell.textLabel.text = [[self.captionItems objectAtIndex:indexPath.row] text];
+//    NSLog(@"%@", self.captionItems);
+//    NSLog(@"%@", [[self.captionItems objectAtIndex:indexPath.row] text]);
+//    
+    SubRipItem *currItem = [self.captionItems objectAtIndex:indexPath.row];
+    
+    NSString *cellStr = [NSString stringWithFormat:@"(%i)%@ (%f) ~ (%f)",
+                          [currItem subtitleNumber],
+                          [currItem text],
+                         [currItem startTime],
+                         [currItem endTime]];
+                         
+    
+    cell.textLabel.text = cellStr;
     //cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0];
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping; // Pre-iOS6 use UILineBreakModeWordWrap
     cell.textLabel.numberOfLines = 0;  // 0 means no max.
     //cell.textLabel.text = [self.data objectAtIndex:indexPath.row];
 
     
-    
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"did select:%li", indexPath.row);
+    SubRipItem *curr = [self.captionItems objectAtIndex:indexPath.row];
+    
+    [self.videoPlayerViewController.moviePlayer setCurrentPlaybackTime:curr.startTime];
 }
 
 /*

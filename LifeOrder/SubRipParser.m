@@ -83,6 +83,28 @@
         });
     });
 }
+- (void)parseWithBlockSync:(void (^)(BOOL, SubRipItems *))block
+{
+    
+        self.subripContent = [self.subripContent stringByReplacingOccurrencesOfString:@"\n\r\n" withString:@"\n\n"];
+        self.subripContent = [self.subripContent stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\n\n"];
+        NSArray *textBlocks = [self.subripContent componentsSeparatedByString:@"\n\n"];
+        NSMutableArray *items = [NSMutableArray array];
+        for (NSString *text in textBlocks)
+        {
+            SubRipItem *subRipItem = [self parseSubRipItem:text];
+            if (subRipItem)
+            {
+                [items addObject:subRipItem];
+            }
+        }
+        
+        SubRipItems *subRipItems = [[SubRipItems alloc] init];
+        [subRipItems setItems:items];
+        
+            block(YES, subRipItems);
+    
+}
 
 - (SubRipItem*)parseSubRipItem:(NSString*)text
 {

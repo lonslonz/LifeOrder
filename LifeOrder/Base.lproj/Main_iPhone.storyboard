@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Yours-->
@@ -387,10 +388,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pli-hb-1Rm">
-                                <rect key="frame" x="0.0" y="308" width="320" height="210"/>
+                                <rect key="frame" x="9" y="295" width="303" height="223"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="210" id="2GN-4m-ziT"/>
+                                    <constraint firstAttribute="height" constant="223" id="9yZ-kW-i40"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="caption" id="cpb-BM-Zkl">
@@ -407,20 +408,31 @@
                                     <outlet property="delegate" destination="tif-eC-hHD" id="Ttc-oi-hz8"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edB-V6-wtI">
+                                <rect key="frame" x="16" y="257" width="37" height="30"/>
+                                <state key="normal" title="scroll">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clickScroll:" destination="tif-eC-hHD" eventType="touchUpInside" id="j71-34-1cQ"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esm-i5-fr3">
-                                <rect key="frame" x="0.0" y="63" width="320" height="237"/>
+                                <rect key="frame" x="9" y="72" width="303" height="185"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="top" secondItem="esm-i5-fr3" secondAttribute="bottom" constant="8" symbolic="YES" id="5tv-Ag-5ZS"/>
-                            <constraint firstItem="La0-bM-6WJ" firstAttribute="top" secondItem="Pli-hb-1Rm" secondAttribute="bottom" constant="1" id="GcZ-8e-LhY"/>
-                            <constraint firstAttribute="trailing" secondItem="esm-i5-fr3" secondAttribute="trailing" id="Z30-u6-re0"/>
-                            <constraint firstItem="esm-i5-fr3" firstAttribute="top" secondItem="zf5-jO-nqq" secondAttribute="top" constant="63" id="Z6H-i4-AEI"/>
-                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="trailing" secondItem="esm-i5-fr3" secondAttribute="trailing" id="de5-65-9tr"/>
-                            <constraint firstItem="esm-i5-fr3" firstAttribute="leading" secondItem="Pli-hb-1Rm" secondAttribute="leading" id="rYe-1d-aFk"/>
-                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="leading" secondItem="zf5-jO-nqq" secondAttribute="leading" id="yaA-Nf-8oR"/>
+                            <constraint firstItem="esm-i5-fr3" firstAttribute="leading" secondItem="zf5-jO-nqq" secondAttribute="leadingMargin" constant="-7" id="0nV-sF-c7F"/>
+                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="centerX" secondItem="zf5-jO-nqq" secondAttribute="centerX" id="1JK-d4-6hA"/>
+                            <constraint firstItem="edB-V6-wtI" firstAttribute="leading" secondItem="zf5-jO-nqq" secondAttribute="leadingMargin" id="Ykq-0o-Dwy"/>
+                            <constraint firstItem="esm-i5-fr3" firstAttribute="top" secondItem="LWx-86-g7x" secondAttribute="bottom" constant="8" symbolic="YES" id="ZbM-WR-vop"/>
+                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="trailing" secondItem="esm-i5-fr3" secondAttribute="trailing" id="coJ-br-NqN"/>
+                            <constraint firstItem="La0-bM-6WJ" firstAttribute="top" secondItem="Pli-hb-1Rm" secondAttribute="bottom" constant="1" id="ggO-uE-0EH"/>
+                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="leading" secondItem="esm-i5-fr3" secondAttribute="leading" id="mWo-kS-4Iq"/>
+                            <constraint firstItem="edB-V6-wtI" firstAttribute="top" secondItem="esm-i5-fr3" secondAttribute="bottom" id="p7m-87-Urh"/>
+                            <constraint firstItem="Pli-hb-1Rm" firstAttribute="top" secondItem="edB-V6-wtI" secondAttribute="bottom" constant="8" symbolic="YES" id="xcz-UO-43Z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dictation" id="aYP-96-aEU"/>
@@ -431,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge4-ep-odC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1329" y="1648"/>
+            <point key="canvasLocation" x="1379" y="1676"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

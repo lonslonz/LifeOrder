@@ -24,4 +24,5 @@
 @property (nonatomic, assign) float timeOffset;
 - (id)initWithSubRipContent:(NSString*)subripContent;
 - (void)parseWithBlock:(void(^)(BOOL success, SubRipItems *item))block;
+- (void)parseWithBlockSync:(void(^)(BOOL success, SubRipItems *item))block;
 @end
